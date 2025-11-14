@@ -1,6 +1,6 @@
 import pytest
 from datetime import datetime
-from ogrre_data_cleaning.clean import string_to_float, string_to_int, clean_date, clean_bool, convert_hole_size_to_decimal
+from ogrre_data_cleaning.clean import string_to_float, string_to_int, clean_date, clean_bool, convert_hole_size_to_decimal, clean_depth
 
 @pytest.mark.unit
 @pytest.mark.parametrize("input_value, expected", [
@@ -124,6 +124,35 @@ def test_convert_hole_size_to_decimal(input_value, expected):
 #     with pytest.raises(ValueError):
 #         convert_hole_size_to_decimal(invalid_input)
 
+
+@pytest.mark.unit
+@pytest.mark.parametrize("input_value, expected", [
+    # Surface variations - should all convert to 0.0
+    ("surface", 0.0),
+    ("Surface", 0.0),
+    ("SURFACE", 0.0),
+    ("surf", 0.0),
+    ("Surf", 0.0),
+    ("SURF", 0.0),
+    ("surf.", 0.0),
+    ("Surf.", 0.0),
+    ("SURF.", 0.0),
+    ("surface.", 0.0),
+    ("  surf  ", 0.0),  # With whitespace
+    # Regular numeric depths
+    ("0", 0.0),
+    ("1234", 1234.0),
+    ("1234.5", 1234.5),
+    ("1234-", 1234.0),  # With trailing dash
+    (1234, 1234.0),  # Already numeric
+    (1234.5, 1234.5),  # Already float
+    # Invalid/empty values
+    (None, None),
+    ("", None),
+    ("invalid", None),
+])
+def test_clean_depth(input_value, expected):
+    assert clean_depth(input_value) == expected
 
 # if __name__ == '__main__':
 #     test_clean_date()

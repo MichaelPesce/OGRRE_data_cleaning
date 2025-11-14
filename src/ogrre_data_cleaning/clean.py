@@ -301,6 +301,42 @@ def clean_bool(checkbox_str: str):
         # If it's not a string and not a boolean, return False
         return False
 
+def clean_depth(depth_str):
+    """
+    Clean depth field values, converting 'surface' variations to 0 and processing numeric values.
+    
+    Many forms contain the word "surface" or variants (Surf., Surf, surf, surf., etc.) 
+    to represent situations where the well is cemented or plugged back to surface.
+    This function converts these variations to 0 for database storage.
+    
+    Args:
+        depth_str: String or numeric value representing a depth
+        
+    Returns:
+        float: Depth value as a float, with 'surface' variants converted to 0
+        None: If the input cannot be parsed
+    """
+    # If input is already a numeric type, return it as float
+    if isinstance(depth_str, (int, float)):
+        return float(depth_str)
+    
+    # If input is None or empty, return None
+    if depth_str is None or (isinstance(depth_str, str) and not depth_str.strip()):
+        return None
+    
+    # Convert to string and normalize
+    depth_str = str(depth_str).strip()
+    
+    # Check for 'surface' variations (case-insensitive)
+    # Match: surface, surf, surf., Surf, Surf., SURFACE, etc.
+    surface_pattern = r'^surf(ace)?\.?$'
+    if re.match(surface_pattern, depth_str, re.IGNORECASE):
+        return 0.0
+    
+    # Try to parse as a regular float (handles numbers with trailing dashes, etc.)
+    result = string_to_float(depth_str)
+    return result
+
 def clean_size_string(size_str):
     """Clean the size string by removing unwanted characters and normalizing format."""
     if not size_str or pd.isna(size_str):
@@ -682,5 +718,34 @@ if __name__ == '__main__':
     
     for case in long_date_cases:
         result = clean_date(case)
+        print(f"Input: '{case}' -> Output: {result}")
+    print()
+    
+    # Test cases for clean_depth function
+    print("Testing clean_depth handling (surface variations):")
+    
+    depth_cases = [
+        'surface',       # Full word lowercase
+        'Surface',       # Full word capitalized
+        'SURFACE',       # Full word uppercase
+        'surf',          # Abbreviated lowercase
+        'Surf',          # Abbreviated capitalized
+        'SURF',          # Abbreviated uppercase
+        'surf.',         # Abbreviated with period lowercase
+        'Surf.',         # Abbreviated with period capitalized
+        'SURF.',         # Abbreviated with period uppercase
+        'surface.',      # Full word with period
+        '0',             # Already zero
+        '1234',          # Regular depth
+        '1234.5',        # Depth with decimal
+        '1234-',         # Depth with trailing dash
+        '  surf  ',      # With whitespace
+        None,            # None value
+        '',              # Empty string
+        'invalid',       # Invalid text
+    ]
+    
+    for case in depth_cases:
+        result = clean_depth(case)
         print(f"Input: '{case}' -> Output: {result}")
     print()
