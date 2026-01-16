@@ -88,8 +88,8 @@
         "google_data_type": "Plain text",
         "occurrence": "Optional once",
         "grouping": null,
-        "database_data_type": "int",
-        "cleaning_function": "string_to_int",
+        "database_data_type": "str",
+        "cleaning_function": null,
         "accepted_range": null,
         "field_specific_notes": null,
         "model_enabled": "Yes"
