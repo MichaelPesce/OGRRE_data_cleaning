@@ -76,5 +76,12 @@ if __name__ == '__main__':
     Excel_to_Json(excel_file_path = "ISGS Well Completion Schema.xlsx", Test_Sheet_Names = False)
     Excel_to_Json(excel_file_path = "CALGEM Well Summary Schema.xlsx", Test_Sheet_Names = False)
     Excel_to_Json(excel_file_path = "Osage Nation Schema.xlsx", Test_Sheet_Names = False)
-    
+    """OSAGE NATION SCHEMA: 
+        Following running this script two occurences of 'Osage_V1_Final_Report_Compl_Dep' should be edited to be 
+        'Osage_V1_Final_Report_Compl_Deep'. 
+        This is caused by excel's sheet name character limit that is not present in Google DocAI or Google Sheets.
+        Occurences: 
+            Inside Extractor Processors.json as "Processor Name": "Osage_V1_Final_Report_Compl_Deep", and
+            File name Osage_V1_Final_Report_Compl_Dep.json
+    """
     

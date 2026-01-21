@@ -1,8 +1,10 @@
 [
     {
+        "0.937": "Osage_V1_Plugging_Report",
         "V1_4-01 Fscores": 0.946,
         "V1_5-01 Fscores": 0.926,
-        "google_processor_name": "Osage_V1_Plugging_Report",
+        "V1_4-02 Fscores": 0.937,
+        "V1_5-02 Fscores": 0.911,
         "document_type": "Plugging Record",
         "page_order_sort": 5.0,
         "name": "Commenced_Plugging_Work",
@@ -17,9 +19,11 @@
         "model_enabled": "Yes"
     },
     {
+        "0.937": "Osage_V1_Plugging_Report",
         "V1_4-01 Fscores": 0.832,
         "V1_5-01 Fscores": 0.817,
-        "google_processor_name": "Osage_V1_Plugging_Report",
+        "V1_4-02 Fscores": 0.827,
+        "V1_5-02 Fscores": 0.776,
         "document_type": "Plugging Record",
         "page_order_sort": 1.0,
         "name": "Quarter",
@@ -34,9 +38,11 @@
         "model_enabled": "Yes"
     },
     {
+        "0.937": "Osage_V1_Plugging_Report",
         "V1_4-01 Fscores": 0.991,
         "V1_5-01 Fscores": 0.973,
-        "google_processor_name": "Osage_V1_Plugging_Report",
+        "V1_4-02 Fscores": 0.991,
+        "V1_5-02 Fscores": 0.956,
         "document_type": "Plugging Record",
         "page_order_sort": 4.0,
         "name": "R",
@@ -51,9 +57,11 @@
         "model_enabled": "Yes"
     },
     {
+        "0.937": "Osage_V1_Plugging_Report",
         "V1_4-01 Fscores": 0.974,
         "V1_5-01 Fscores": 0.974,
-        "google_processor_name": "Osage_V1_Plugging_Report",
+        "V1_4-02 Fscores": 0.94,
+        "V1_5-02 Fscores": 0.897,
         "document_type": "Plugging Record",
         "page_order_sort": 2.0,
         "name": "Sec",
@@ -68,9 +76,11 @@
         "model_enabled": "Yes"
     },
     {
+        "0.937": "Osage_V1_Plugging_Report",
         "V1_4-01 Fscores": 0.966,
         "V1_5-01 Fscores": 0.923,
-        "google_processor_name": "Osage_V1_Plugging_Report",
+        "V1_4-02 Fscores": 0.966,
+        "V1_5-02 Fscores": 0.932,
         "document_type": "Plugging Record",
         "page_order_sort": 3.0,
         "name": "T",
@@ -85,9 +95,11 @@
         "model_enabled": "Yes"
     },
     {
+        "0.937": "Osage_V1_Plugging_Report",
         "V1_4-01 Fscores": 1.0,
         "V1_5-01 Fscores": 0.983,
-        "google_processor_name": "Osage_V1_Plugging_Report",
+        "V1_4-02 Fscores": 0.991,
+        "V1_5-02 Fscores": 0.991,
         "document_type": "Plugging Record",
         "page_order_sort": 6.0,
         "name": "Total_Depth",
