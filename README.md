@@ -13,15 +13,23 @@ To install from source
 pip install .
 ```
 
-## Usage
+To include the optional LLM cleaning dependencies:
 
-To use the package, import the functions you need from the `clean` module.
-
-```python
-from ogrre_data_cleaning import string_to_float, string_to_int, llm_clean
+```bash
+pip install '.[llm]'
 ```
 
-Note: Model checkpoints will be automatically downloaded when first using the `llm_clean` function.
+## Usage
+
+To use the package, import the functions you need directly from the package.
+
+```python
+from ogrre_data_cleaning import CLEANING_FUNCTIONS, string_to_float, string_to_int
+```
+
+`CLEANING_FUNCTIONS` contains the cleaning functions available to callers by schema/configuration name.
+
+Note: `llm_clean` requires the optional `llm` extra. Model checkpoints will be automatically downloaded when first using the `llm_clean` function.
 
 ## Overview
 
