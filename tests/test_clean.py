@@ -1,6 +1,54 @@
+import builtins
+
 import pytest
 from datetime import datetime
-from ogrre_data_cleaning.clean import string_to_float, string_to_int, clean_date, clean_bool, convert_hole_size_to_decimal, clean_depth, newts_clean_units, newts_clean_epa_methods
+
+import ogrre_data_cleaning as odc
+from ogrre_data_cleaning import CLEANING_FUNCTIONS
+from ogrre_data_cleaning.clean import (
+    clean_bool,
+    clean_date,
+    clean_depth,
+    convert_hole_size_to_decimal,
+    newts_clean_epa_methods,
+    newts_clean_units,
+    string_to_float,
+    string_to_int,
+)
+
+
+def test_package_exports_cleaning_functions():
+    expected_names = [
+        "clean_bool",
+        "string_to_int",
+        "string_to_float",
+        "string_to_date",
+        "clean_date",
+        "convert_hole_size_to_decimal",
+        "llm_clean",
+        "clean_depth",
+        "newts_clean_units",
+        "newts_clean_epa_methods",
+    ]
+
+    assert list(CLEANING_FUNCTIONS) == expected_names
+    assert odc.CLEANING_FUNCTIONS is CLEANING_FUNCTIONS
+    for name in expected_names:
+        assert CLEANING_FUNCTIONS[name] is getattr(odc, name)
+
+
+def test_llm_clean_requires_llm_extra_when_torch_missing(monkeypatch):
+    real_import = builtins.__import__
+
+    def import_without_torch(name, *args, **kwargs):
+        if name == "torch" or name.startswith("torch."):
+            raise ImportError("No module named 'torch'")
+        return real_import(name, *args, **kwargs)
+
+    monkeypatch.setattr(builtins, "__import__", import_without_torch)
+
+    with pytest.raises(ImportError, match=r"ogrre_data_cleaning\[llm\]"):
+        odc.llm_clean(1.0)
 
 @pytest.mark.unit
 @pytest.mark.parametrize("input_value, expected", [

@@ -1,9 +1,6 @@
 import re
-from pathlib import Path
 from datetime import datetime
 import dateutil.parser as date_parser
-import torch
-import numpy as np
 import pandas as pd
 import unicodedata
 
@@ -121,6 +118,15 @@ def llm_clean(s, model_name='holesize', model_version='0', options={}):
     # If input is already a cleaned value (assuming it's a string), return it
     if not isinstance(s, float):
         return s
+
+    (
+        np,
+        torch,
+        Encoder,
+        Classifier,
+        HoleSize,
+        get_checkpoint_path,
+    ) = _load_llm_dependencies()
     
     # Check devices
     device = 'cpu'
@@ -798,6 +804,19 @@ def convert_hole_size_to_decimal(size_str, options={}):
     except (ValueError, ZeroDivisionError) as e:
         print(f"DEBUG: Error parsing size: {e}")
         return None
+
+CLEANING_FUNCTIONS = {
+    "clean_bool": clean_bool,
+    "string_to_int": string_to_int,
+    "string_to_float": string_to_float,
+    "string_to_date": string_to_date,
+    "clean_date": clean_date,
+    "convert_hole_size_to_decimal": convert_hole_size_to_decimal,
+    "llm_clean": llm_clean,
+    "clean_depth": clean_depth,
+    "newts_clean_units": newts_clean_units,
+    "newts_clean_epa_methods": newts_clean_epa_methods,
+}
 
 
 if __name__ == '__main__':
