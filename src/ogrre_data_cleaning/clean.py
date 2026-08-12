@@ -113,7 +113,7 @@ def _load_llm_dependencies():
 
     return np, torch, Encoder, Classifier, HoleSize, get_checkpoint_path
 
-def llm_clean(s, model_name='holesize', model_version='0'):
+def llm_clean(s, model_name='holesize', model_version='0', options={}):
     """
     Converts a string to desired final data form for various pre-trained 
     language models.
