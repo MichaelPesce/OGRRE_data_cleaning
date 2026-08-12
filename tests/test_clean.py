@@ -353,3 +353,17 @@ def test_clean_depth(input_value, expected):
     output = clean_depth(input_value)
     assert output == expected
     assert clean_depth(output) == expected
+
+
+@pytest.mark.unit
+def test_cleaning_functions_accept_options():
+    custom_options = {"test_key": "test_val"}
+    # Call all cleaning functions with options and verify they execute without errors
+    assert string_to_float("12.3", options=custom_options) == 12.3
+    assert string_to_int("12", options=custom_options) == 12
+    assert clean_date("2026-08-07", options=custom_options) is not None
+    assert clean_bool("yes", options=custom_options) is True
+    assert convert_hole_size_to_decimal("8-3/4", options=custom_options) == 8.75
+    assert clean_depth("100", options=custom_options) == 100.0
+    assert newts_clean_units("Feet", options=custom_options) == "Feet"
+    assert newts_clean_epa_methods("EPA 8260B", options=custom_options) == "EPA 8260B"

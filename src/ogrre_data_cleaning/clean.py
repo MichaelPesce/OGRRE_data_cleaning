@@ -4,7 +4,7 @@ import dateutil.parser as date_parser
 import pandas as pd
 import unicodedata
 
-def string_to_date(s: str):
+def string_to_date(s: str, options={}):
     """
     Converts a string to a date after removing non-date characters.
     """
@@ -34,7 +34,7 @@ def string_to_date(s: str):
     except ValueError:
         return None
 
-def string_to_float(s: str):
+def string_to_float(s: str, options={}):
     """
     Converts a string to a float after removing non-numeric characters.
     
@@ -66,7 +66,7 @@ def string_to_float(s: str):
     except ValueError:
         return None
 
-def string_to_int(s: str):
+def string_to_int(s: str, options={}):
     """
     Converts a string to an integer after removing non-numeric characters.
     
@@ -113,7 +113,7 @@ def _load_llm_dependencies():
 
     return np, torch, Encoder, Classifier, HoleSize, get_checkpoint_path
 
-def llm_clean(s, model_name='holesize', model_version='0'):
+def llm_clean(s, model_name='holesize', model_version='0', options={}):
     """
     Converts a string to desired final data form for various pre-trained 
     language models.
@@ -191,7 +191,7 @@ def llm_clean(s, model_name='holesize', model_version='0'):
     
     return dataset.classes[y_pred]
 
-def clean_date_DEPRECATED(date_str: str) -> datetime | None:
+def clean_date_DEPRECATED(date_str: str, options={}) -> datetime | None:
     """
     Clean and standardize date strings into datetime objects.
     
@@ -272,7 +272,7 @@ def clean_date_DEPRECATED(date_str: str) -> datetime | None:
             
     return None
 
-def clean_date(date_str: str) ->datetime | None:
+def clean_date(date_str: str, options={}) ->datetime | None:
     """Clean_date function that utilizes dateutil.parser for generalized formatless date conversions.
 
     Cleans and standardizes date string entries into datetime objects.
@@ -312,7 +312,7 @@ def clean_date(date_str: str) ->datetime | None:
 
     return res.strftime('%m/%d/%Y')
 
-def newts_clean_lab_id(s: str) -> str | None:
+def newts_clean_lab_id(s: str, options={}) -> str | None:
     """
     Cleans lab id field for newts team.
     Does not seem to every company lab_id.
@@ -352,7 +352,7 @@ def levenshtein_distance(s1: str, s2: str) -> int:
         previous_row = current_row
     return previous_row[-1]
 
-def newts_clean_units(s: str) -> str | None:
+def newts_clean_units(s: str, options={}) -> str | None:
     """
     Cleans a units string and checks it against standard allowed units:
     ["Feet", "Inches", "Pounds per Foot", "Sacks", "Hrs", "BBls", "MMCF"].
@@ -473,7 +473,7 @@ def newts_clean_units(s: str) -> str | None:
 
     return s
 
-def newts_clean_epa_methods(s: str) -> str | None:
+def newts_clean_epa_methods(s: str, options={}) -> str | None:
     """
     Cleans an EPA, Standard Method (SM), or SW-846 (SW) method string, standardizing it.
     
@@ -538,7 +538,7 @@ def newts_clean_epa_methods(s: str) -> str | None:
         
     return None
 
-def clean_bool(checkbox_str: str):
+def clean_bool(checkbox_str: str, options={}):
     '''
     check if string is valid representation of boolean
     
@@ -591,7 +591,7 @@ def clean_bool(checkbox_str: str):
         # If it's not a string and not a boolean, return False
         return False
 
-def clean_depth(depth_str):
+def clean_depth(depth_str, options={}):
     """
     Clean depth field values, converting 'surface' variations to 0 and processing numeric values.
     
@@ -719,7 +719,7 @@ def separate_fractions(m_str):
         res.append(char)
     return ''.join(res)
 
-def convert_hole_size_to_decimal(size_str):
+def convert_hole_size_to_decimal(size_str, options={}):
     """Convert hole size string to decimal value."""
     if not size_str or pd.isna(size_str):
         return None
