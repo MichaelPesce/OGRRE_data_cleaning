@@ -53,3 +53,16 @@ jobs:
         working-directory: tests
         run: |
           pytest --verbose .
+
+  e2e-tests:
+    name: Frontend E2E testing
+    needs: pytest
+    uses: CATALOG-Historic-Records/orphaned-wells-ui/.github/workflows/frontend-tests-dispatch.yml@main
+    permissions:
+      contents: read
+    with:
+      checkout_repository: CATALOG-Historic-Records/orphaned-wells-ui
+      checkout_ref: main
+      install_python_package: true
+    secrets:
+      checkout_token: ${{ secrets.CHECKOUT_TOKEN }}
